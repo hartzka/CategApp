@@ -1,3 +1,3 @@
-Star rating component:
+Full Stack -harjoitustyö
 
-https://github.com/voronianski/react-star-rating-component
+Heroku: https://categapp.herokuapp.com/
