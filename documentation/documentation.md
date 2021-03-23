@@ -1,2 +1,27 @@
-# Dokumentaatio
+# Documentation
 
+## Running locally
+
+In the project root folder, run:
+
+* npm install
+* npm run build:ui
+* npm start
+
+Check also, that frontend dependencies are installed with `npm install` in folder `frontend`.
+
+The app will run on address `http://localhost:3001/`.
+
+Testing backend: `npm test`
+
+Linting: `npm run lint`
+
+Deploying to heroku: `npm run deploy:full` or `npm run deploy`
+
+## Env-variables
+
+Env-variables are used in the project. Create file `.env` in the root folder and add the following items to it:
+
+* `SECRET=` (For authentication)
+* `MONGODB_URI=` (For database, MongoDB-address)
+* `MONGODB_TEST_URI=` (For testing in DB, not necessary)
