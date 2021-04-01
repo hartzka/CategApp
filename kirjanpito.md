@@ -8,4 +8,4 @@
 | 23.3. |  2   | Frontendin buildin fixaaminen. Sovelluksen etusivua ei näkynyt herokussa, nyt sovellus toimii myös siellä. Env-muuttujien lisääminen myös herokuun. Dokumentaatiota. |
 | 26.3. |  5   | Yksittäisen pääkategorian luominen tietokantaan, testejä lisää |
 | 1.4.  |  8   | Aws s3:n konfiguraatio ja kuvat näkyviin. Uuden subcategoryn luonti, imagelle router, service ja model. MulterImage, tyylejä. |
-| yht   |  21  | | 
+| yht   |  29  | |
