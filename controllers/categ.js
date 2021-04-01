@@ -1,6 +1,7 @@
 const categRouter = require('express').Router()
 const Categ = require('../models/categ')
 const User = require('../models/user')
+const Image = require('../models/image')
 const jwt = require('jsonwebtoken')
 
 const getTokenFrom = request => {
@@ -13,8 +14,20 @@ const getTokenFrom = request => {
 
 categRouter.get('/', async (request, response) => {
   const categs = await Categ.find({})
+  .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
   .populate('user', { username: 1, name: 1 })
   response.json(categs.map(categ => categ.toJSON()))
+})
+
+categRouter.get('/:id', async (request, response) => {
+  const categ = await Categ.findById(request.params.id)
+  .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
+  .populate('user', { username: 1, name: 1 })
+  if (categ) {
+    response.json(categ.toJSON())
+  } else {
+    response.status(404).end()
+  }
 })
 
 categRouter.post('/', async (request, response, next) => {
@@ -35,23 +48,50 @@ categRouter.post('/', async (request, response, next) => {
   }
 
   const user = await User.findById(decodedToken.id)
+  let image = null
+  if (body.image !== undefined) {
+    image = await Image.findById(body.image.id)
+  }
 
-  const categ = new Categ({
-    mainCateg: body.mainCateg,
-    subCateg: body.subCateg === undefined ? '' : body.subCateg,
-    isMainCateg: body.isMainCateg,
-    name: body.name === undefined ? '' : body.name,
-    description: body.description === undefined ? '' : body.description,
-    stars: body.stars === undefined ? 0 : body.stars,
-    user: user._id
-  })
+  let categ
+  if (image === null) {
+    categ = new Categ({
+      mainCateg: body.mainCateg,
+      subCateg: body.subCateg === undefined ? '' : body.subCateg,
+      isMainCateg: body.isMainCateg,
+      name: body.name === undefined ? '' : body.name,
+      description: body.description === undefined ? '' : body.description,
+      stars: body.stars === undefined ? 0 : body.stars,
+      user: user._id
+    })
+  } else {
+    categ = new Categ({
+      mainCateg: body.mainCateg,
+      subCateg: body.subCateg === undefined ? '' : body.subCateg,
+      isMainCateg: body.isMainCateg,
+      name: body.name === undefined ? '' : body.name,
+      description: body.description === undefined ? '' : body.description,
+      stars: body.stars === undefined ? 0 : body.stars,
+      user: user._id,
+      image: image._id
+    })
+  }
 
   const savedCateg = await categ.save()
   user.categs = user.categs.concat(savedCateg._id)
   await user.save()
-  const categToBeReturned = await Categ.findById(savedCateg.id)
-  .populate('user', { username: 1, name: 1 })
-  response.json(categToBeReturned.toJSON())
+  if (image !== null) {
+    image.categ = savedCateg._id
+    await image.save()
+    const categToBeReturned = await Categ.findById(savedCateg.id)
+    .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
+    .populate('user', { username: 1, name: 1 })
+    response.json(categToBeReturned.toJSON())
+  } else {
+    const categToBeReturned = await Categ.findById(savedCateg.id)
+    .populate('user', { username: 1, name: 1 })
+    response.json(categToBeReturned.toJSON())
+  }
 })
 
 module.exports = categRouter

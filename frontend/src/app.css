@@ -32,6 +32,18 @@ button, input {
   max-width: 350px;
 }
 
+.categ {
+  padding-top: 10px;
+  padding-left: 2px;
+  border: solid;
+  border-width: 1px;
+  margin-bottom: 5px;
+}
+
+nav + div {
+  padding: 10px;
+}
+
 body {
   background-color: #dedede;
 }
@@ -46,4 +58,39 @@ nav {
 
 .nav-link p {
   display: table-cell;
+}
+
+img {
+  max-width: 300px;
+  max-height: 200px;
+}
+
+.process_image {
+  display: block;
+  margin: 0 auto;
+  width: 250px;
+  height: 250px;
+}
+
+.process {
+  background-color: whitesmoke;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.process_heading {
+  text-transform: uppercase;
+  text-align: center;
+  color: black;
+}
+
+.process_details {
+  text-align: center;
+}
+
+.process_upload-btn {
+  display: block;
+  margin: 2.5rem auto;
+  text-align: center;
 }
