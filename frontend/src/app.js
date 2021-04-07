@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Categ from './components/Categ'
+import CategDetails from './components/CategDetails'
 import Notification from './components/Notification'
 import categService from './services/categs'
 import loginService from './services/login'
@@ -340,6 +341,9 @@ const App = () => {
                     (selectedSubCateg === 'Show all' || selectedSubCateg === categ.subCateg) &&
                     <div className="categ">
                       <Categ key={categ.id} categ={categ} />
+                      <Togglable buttonLabel='View' cancelLabel='Hide' initializeFields={initializeFields} className="view" ref={categRef}>
+                        <CategDetails key={categ.id} categ={categ} />
+                      </Togglable>
                     </div>
                   )}
                 </div>
