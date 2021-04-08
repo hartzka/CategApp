@@ -12,6 +12,10 @@ button, input {
   margin-bottom: 10px;
 }
 
+.webkit-box {
+  display: -webkit-box;
+}
+
 .success {
   color: green;
 }
@@ -71,6 +75,7 @@ img {
   width: 250px;
   height: 250px;
 }
+
 
 .process {
   background-color: whitesmoke;

@@ -16,6 +16,7 @@ import {
   Switch, Route
 } from 'react-router-dom'
 import DefaultImg from './assets/default-img.jpg'
+import { DropdownButton, Dropdown } from 'react-bootstrap'
 import LoginForm from './components/LoginForm'
 
 const App = () => {
@@ -179,6 +180,33 @@ const App = () => {
     setDefaultImage()
   }
 
+  const categDropDown = () => (
+    <div>
+      <DropdownButton id="dropdown-basic-button" title={selectedCateg.mainCateg}
+        onSelect={id =>
+          handleSelectedCategChange(id)
+        }
+      >
+        {categs.map(categ => (
+          categ.isMainCateg === true && categ.user.username === user.username &&
+        <Dropdown.Item eventKey={categ.id}>{categ.mainCateg}</Dropdown.Item>
+        ))}
+      </DropdownButton>
+    </div>
+  )
+
+  const subCategDropDown = () => (
+    <DropdownButton id="dropdown-variants-Secondary" title={selectedSubCateg}
+      onSelect={c =>
+        handleSelectedSubCategChange(c)
+      }
+    >
+      {getSubCategories(true).map(subCateg => (
+        <Dropdown.Item eventKey={subCateg}>{subCateg}</Dropdown.Item>
+      ))}
+    </DropdownButton>
+  )
+
   const handleSelectedCategChange = (id) => {
     if (id === 0) {
       setSelectedCateg({ id: 0, mainCateg: '' })
@@ -275,6 +303,10 @@ const App = () => {
     setNewSubCateg(event.target.value)
   }
 
+  const handleSelectedSubCategChange = (e) => {
+    setSelectedSubCateg(e)
+  }
+
   const handleSelectedNewSubCategChange = (e) => {
     setSelectedNewSubCateg(e)
     setNewSubCateg('')
@@ -334,6 +366,10 @@ const App = () => {
               loginForm() :
               <div>
                 <p>{mainCategForm()} {selectedCateg.mainCateg !== '' && subCategForm()}</p>
+                <div className="webkit-box">
+                  {selectedCateg.mainCateg !== '' && categDropDown()} {selectedCateg.mainCateg !== '' && subCategDropDown()}
+                </div>
+                <br></br>
                 <div>
                   {categs.map(categ =>
                     categ.isMainCateg === false &&
