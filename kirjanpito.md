@@ -10,5 +10,4 @@
 | 1.4.  |  8   | Aws s3:n konfiguraatio ja kuvat näkyviin. Uuden subcategoryn luonti, imagelle router, service ja model. MulterImage, tyylejä. |
 | 7.4.  |  2   | Yksittäisen kategorian erillinen näkymä |
 | 8.4.  |  3   | Kategorioiden filtteröinti pää- ja alikategorioiden mukaan, tyylejä |
-||||
-| yht   |  29  | |
+| yht   |  34  | |
