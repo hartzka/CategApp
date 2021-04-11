@@ -94,4 +94,59 @@ categRouter.post('/', async (request, response, next) => {
   }
 })
 
+categRouter.delete('/:id', async (request, response, next) => {
+  const id = request.params.id
+  const token = getTokenFrom(request)
+
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
+    try {
+        const categ = await Categ.findById(id)
+
+        if (categ.user.toString() === decodedToken.id) {
+            const user = await User.findById(decodedToken.id)
+            await Categ.findByIdAndRemove(categ._id)
+            user.categs = user.categs.filter(c => c === categ._id)
+            const updatedUser = await User.findByIdAndUpdate(decodedToken.id, user, { new: true })
+            .populate('categ', {
+              mainCateg: 1, subCateg: 1, description: 1, stars: 1, name: 1
+            })  
+            response.status(204).end()
+        } else {
+            response.status(401).json({ error: 'not authorized' })
+        }
+
+    } catch (error) {
+        next(error)
+    }
+})
+
+categRouter.put('/:id', async (request, response, next) => {
+  const body = request.body
+
+  let categ = {
+    mainCateg: body.mainCateg,
+    subCateg: body.subCateg === undefined ? '' : body.subCateg,
+    isMainCateg: body.isMainCateg,
+    name: body.name === undefined ? '' : body.name,
+    description: body.description === undefined ? '' : body.description,
+    stars: body.stars === undefined ? 0 : body.stars,
+  }
+  if (body.image !== undefined) {
+    let image = await Image.findById(body.image.id)
+    categ.image = image._id
+    image.categ = categ._id
+    await image.save()
+  }
+
+  const updatedCateg = await Categ.findByIdAndUpdate(request.params.id, categ, { new: true })
+    .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
+    .populate('user', { username: 1, name: 1 })
+  response.json(updatedCateg.toJSON())
+})
+
 module.exports = categRouter

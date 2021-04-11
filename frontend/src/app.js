@@ -192,6 +192,10 @@ const App = () => {
         <Dropdown.Item eventKey={categ.id}>{categ.mainCateg}</Dropdown.Item>
         ))}
       </DropdownButton>
+      {selectedCateg.mainCateg !== '' && <button className="btn btn-danger" onClick={() =>
+        handleDeleteClick(selectedCateg)}>
+        Delete category
+      </button>}
     </div>
   )
 
@@ -293,6 +297,55 @@ const App = () => {
     setNewDescription('')
   }
 
+  const handleDeleteClick = (categ) => {
+    console.log('deleting', categ.id)
+    const name = categ.name
+    const mainCateg = categ.mainCateg
+    if ((name === '' && (window.confirm(`Delete ${mainCateg}?`)))
+    || (name !== '' && window.confirm(`Delete ${mainCateg}: ${name}?`)))
+    {
+      deleteCateg(categ)
+    }
+  }
+
+  const deleteCateg = (categ) => {
+    handleSelectedCategChange(0)
+    categService.deleteCateg(categ.id)
+      .then(e => {
+        const newMessage = {
+          type: 'success',
+          text: 'Deleted succesfully'
+        }
+        setMessage(newMessage)
+        if (categ.isMainCateg === true) {
+          categs.forEach(c => {
+            if (c.mainCateg === categ.mainCateg && c.user.username === user.username && c.isMainCateg === false) {
+              categService.deleteCateg(c.id)
+            }
+          })
+          const updatedCategs = categs.filter(c => (c.mainCateg !== categ.mainCateg && c.user.username === user.username) || (c.user.username !== user.username))
+          setCategs(updatedCategs)
+        } else {
+          const updatedCategs = categs.filter(c => c.id !== categ.id)
+          setCategs(updatedCategs)
+        }
+      }).then(e => {
+        categs.forEach(c => {
+          if (c.user.username === user.username && c.isMainCateg === true && c.id !== categ.id) {
+            handleSelectedCategChange(c.id)
+          }
+        })
+      }).catch(error => {
+        const newMessage = {
+          type: 'error',
+          text: 'The item has already been removed from the server!'
+        }
+        setMessage(newMessage)
+      })
+    setTimeout(() => { setMessage(null) }, 4000)
+  }
+
+
   const handleMainCategChange = (event) => {
     setNewMainCateg(event.target.value)
     setSelectedSubCateg('Show all')
@@ -376,7 +429,7 @@ const App = () => {
                     categ.mainCateg === selectedCateg.mainCateg &&
                     (selectedSubCateg === 'Show all' || selectedSubCateg === categ.subCateg) &&
                     <div className="categ">
-                      <Categ key={categ.id} categ={categ} />
+                      <Categ key={categ.id} categ={categ} handleDeleteClick={handleDeleteClick} user={user} />
                       <Togglable buttonLabel='View' cancelLabel='Hide' initializeFields={initializeFields} className="view" ref={categRef}>
                         <CategDetails key={categ.id} categ={categ} />
                       </Togglable>
