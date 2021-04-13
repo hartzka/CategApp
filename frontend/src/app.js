@@ -297,6 +297,19 @@ const App = () => {
     setNewDescription('')
   }
 
+  const editStars = (c) => {
+    const id = c.id
+
+    const categToUpdate = categs.find(categ => categ.id === id)
+    categToUpdate.stars = c.stars
+    categService.update(id, categToUpdate)
+      .then(response => {
+        setCategs(categs.map(categ => categ.id !== id ? categ : response))
+      }).catch(error => {
+        console.log(error.response.data)
+      })
+  }
+
   const handleDeleteClick = (categ) => {
     console.log('deleting', categ.id)
     const name = categ.name
@@ -429,7 +442,7 @@ const App = () => {
                     categ.mainCateg === selectedCateg.mainCateg &&
                     (selectedSubCateg === 'Show all' || selectedSubCateg === categ.subCateg) &&
                     <div className="categ">
-                      <Categ key={categ.id} categ={categ} handleDeleteClick={handleDeleteClick} user={user} />
+                      <Categ key={categ.id} categ={categ} handleDeleteClick={handleDeleteClick} user={user} editStars={editStars} />
                       <Togglable buttonLabel='View' cancelLabel='Hide' initializeFields={initializeFields} className="view" ref={categRef}>
                         <CategDetails key={categ.id} categ={categ} />
                       </Togglable>

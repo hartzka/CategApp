@@ -10,5 +10,7 @@
 | 1.4.  |  8   | Aws s3:n konfiguraatio ja kuvat näkyviin. Uuden subcategoryn luonti, imagelle router, service ja model. MulterImage, tyylejä. |
 | 7.4.  |  2   | Yksittäisen kategorian erillinen näkymä |
 | 8.4.  |  3   | Kategorioiden filtteröinti pää- ja alikategorioiden mukaan, tyylejä |
-| 10.4.  |  7   | Kategorioiden deletointitoiminnallisuus sekä pääkategorioille että yksittäisille itemeille (back- ja frontend), ilmoitukset |
-| yht   |  41  | |
+| 10.4. |  7   | Kategorioiden deletointitoiminnallisuus sekä pääkategorioille että yksittäisille itemeille (back- ja frontend), ilmoitukset |
+| 12.4. |  2   | Sopivien rating-kirjastojen tutkiminen, pohdintaa tähitiluokituksiin liittyen |
+| 13.4. |  3   | React-star-rating-component -kirjaston liitäminen projektiin ja muokkauksia. Tähtien näyttäminen ja muokkaaminen. |
+| yht   |  46  | |

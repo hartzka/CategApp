@@ -1,12 +1,22 @@
 import React from 'react'
 import DefaultImg from '../assets/default-img.jpg'
+import StarRatingComponent from 'react-star-rating-component'
 
-const Categ = ({ categ, handleDeleteClick, user }) => {
-  
+const Categ = ({ categ, handleDeleteClick, user, editStars }) => {
+  const onStarClick = (nextValue, prevValue, name) => {
+    categ.stars=nextValue
+    editStars(categ)
+  }
   return (
     <div>
       <h4>{categ.name}</h4>
         <img src={categ.image !== undefined ? `${categ.image.imageData}` : `${DefaultImg}`} className="process__image" />
+      <StarRatingComponent
+        name="rate1"
+        starCount={5}
+        value={categ.stars}
+        onStarClick={onStarClick}
+      />
       <form>
         {user !== undefined && categ.user !== undefined && user.username === categ.user.username &&
         <button class="btn btn-danger" onClick={() =>
