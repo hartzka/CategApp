@@ -9,6 +9,7 @@ import imageService from './services/images'
 import MainCategForm from './components/MainCategForm'
 import SubCategForm from './components/SubCategForm'
 import Togglable from './components/Togglable'
+import CategView from './components/CategView'
 import Menu from './components/Menu'
 import Users from './components/Users'
 import {
@@ -18,6 +19,9 @@ import {
 import DefaultImg from './assets/default-img.jpg'
 import { DropdownButton, Dropdown } from 'react-bootstrap'
 import LoginForm from './components/LoginForm'
+
+let timeoutID
+let subCategDataSet = false
 
 const App = () => {
   const [categs, setCategs] = useState([])
@@ -33,8 +37,10 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [categToUpdateId, setCategToUpdateId] = useState('')
   const mainCategFormRef = React.createRef()
   const subCategFormRef = React.createRef()
+  const editCategFormRef = React.createRef()
   const categRef = React.createRef()
   const [users, setUsers] = useState([])
 
@@ -171,6 +177,50 @@ const App = () => {
     )
   }
 
+  const setSubCategData = () => {
+    if (!subCategDataSet) {
+      subCategDataSet = true
+      const categToUpdate = categs.find(categ => categ.id === categToUpdateId)
+      if (categToUpdate !== undefined) {
+        setSelectedNewSubCateg(categToUpdate.subCateg)
+        setNewDescription(categToUpdate.description)
+        setNewName(categToUpdate.name)
+        if (categToUpdate.image) {
+          setNewImage({
+            multerImage: categToUpdate.image.imageData
+          })
+        } else {
+          setDefaultImage()
+        }
+      }
+    }
+  }
+
+  const editCategForm = (id) => {
+    let subCategories = getSubCategories(false)
+    setCategToUpdateId(id)
+    return (
+      <Togglable buttonLabel='Edit' cancelLabel='Cancel' initializeFields={initializeFields} setSubCategData={setSubCategData} ref={editCategFormRef}>
+        <SubCategForm
+          addSubCateg={editSubCateg}
+          newSubCateg={newSubCateg}
+          handleSubCategChange={handleSubCategChange}
+          newName={newName}
+          handleNameChange={handleNameChange}
+          newDescription={newDescription}
+          handleDescriptionChange={handleDescriptionChange}
+          newImage={newImage}
+          handleImageChange={handleImageChange}
+          selectedNewSubCateg={selectedNewSubCateg}
+          handleSelectedNewSubCategChange={handleSelectedNewSubCategChange}
+          subCategories={subCategories}
+          title={'Edit item'}
+          selectedCateg={selectedCateg}
+        />
+      </Togglable>
+    )
+  }
+
   const initializeFields = () => {
     setSelectedNewSubCateg('')
     setNewMainCateg('')
@@ -178,6 +228,7 @@ const App = () => {
     setNewDescription('')
     setNewName('')
     setDefaultImage()
+    subCategDataSet = false
   }
 
   const categDropDown = () => (
@@ -295,6 +346,46 @@ const App = () => {
     setSelectedNewSubCateg('')
     setNewName('')
     setNewDescription('')
+  }
+
+  const editSubCateg = (event) => {
+    event.preventDefault()
+    const subCateg = newSubCateg === '' ? selectedNewSubCateg : newSubCateg
+    const categToUpdate = categs.find(categ => categ.id === categToUpdateId)
+    const updatedCateg = {
+      stars: categToUpdate.stars,
+      mainCateg: categToUpdate.mainCateg,
+      subCateg: subCateg,
+      name: newName,
+      description: newDescription,
+      isMainCateg: false
+    }
+    updatedCateg.image=newImage.imageObject
+    categService.update(categToUpdateId, updatedCateg)
+      .then(response => {
+        setCategs(categs.map(categ => categ.id !== categToUpdateId ? categ : response))
+        const newMessage = {
+          type: 'success',
+          text: `Category ${updatedCateg.name} updated`
+        }
+        setMessage(newMessage)
+      }).catch(error => {
+        const newMessage = {
+          type: 'error',
+          text: 'error updating item'
+        }
+        setMessage(newMessage)
+      })
+    clearTimeout(timeoutID)
+    editCategFormRef.current.toggleVisibility()
+    timeoutID = setTimeout(() => { setMessage(null) }, 4000)
+    setDefaultImage()
+    setNewSubCateg('')
+    setSelectedNewSubCateg('')
+    setNewName('')
+    setNewDescription('')
+    setCategToUpdateId('')
+    subCategDataSet = false
   }
 
   const editStars = (c) => {
@@ -424,6 +515,10 @@ const App = () => {
         <Menu user={user} handleLogout={handleLogout} />
         <Notification message={message} />
         <Switch>
+          <Route path="/categ/:id" render={({ match }) =>
+            <CategView id={match.params.id} categs={categs} initializeFields={initializeFields} editCategForm={editCategForm} />
+          }>
+          </Route>
           <Route path="/users">
             <Users users={users}/>
           </Route>

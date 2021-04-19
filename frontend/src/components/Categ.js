@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import DefaultImg from '../assets/default-img.jpg'
 import StarRatingComponent from 'react-star-rating-component'
 
@@ -10,7 +11,9 @@ const Categ = ({ categ, handleDeleteClick, user, editStars }) => {
   return (
     <div>
       <h4>{categ.name}</h4>
+      <Link to={`/categ/${categ.id}`}>
         <img src={categ.image !== undefined ? `${categ.image.imageData}` : `${DefaultImg}`} className="process__image" />
+      </Link>
       <StarRatingComponent
         name="rate1"
         starCount={5}

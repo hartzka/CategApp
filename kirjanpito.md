@@ -14,4 +14,5 @@
 | 12.4. |  2   | Sopivien rating-kirjastojen tutkiminen, pohdintaa tähitiluokituksiin liittyen |
 | 13.4. |  3   | React-star-rating-component -kirjaston liitäminen projektiin ja muokkauksia. Tähtien näyttäminen ja muokkaaminen. |
 | 15.4. |  1   | Uploads folder puuttui, kuvien tallennus ei onnistunut herokussa. Nyt toimii. |
-| yht   |  47  | |
+| 19.4. |  8   | Erillinen näkymä yksittäiselle objektille (klikkaamalla kuvaa) ja yksittäisen objektin editointi. Mahdollisuus myös vaihtaa kuva jälkikäteen. |
+| yht   |  55  | |
