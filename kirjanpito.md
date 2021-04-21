@@ -15,4 +15,5 @@
 | 13.4. |  3   | React-star-rating-component -kirjaston liitäminen projektiin ja muokkauksia. Tähtien näyttäminen ja muokkaaminen. |
 | 15.4. |  1   | Uploads folder puuttui, kuvien tallennus ei onnistunut herokussa. Nyt toimii. |
 | 19.4. |  8   | Erillinen näkymä yksittäiselle objektille (klikkaamalla kuvaa) ja yksittäisen objektin editointi. Mahdollisuus myös vaihtaa kuva jälkikäteen. |
-| yht   |  55  | |
+| 21.4. |  5   | Cypress-testejä ja frontin unit-testejä, babelrc, babelconfig |
+| yht   |  56  | |

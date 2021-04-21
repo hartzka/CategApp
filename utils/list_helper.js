@@ -1,5 +1,4 @@
 const _ = require('lodash')
-const User = require('../models/user')
 
 const totalStars = (categs) => {
   let total = categs.reduce(function(sum, categ) {
@@ -13,7 +12,7 @@ const favoriteCateg = (categs) => {
       return {}
   }
 
-  maxStars = categs.reduce(function (categ, m) {
+  const maxStars = categs.reduce(function (categ, m) {
     return ( categ.stars > m.stars ? categ : m );
   });
 

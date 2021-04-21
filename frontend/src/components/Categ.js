@@ -22,7 +22,7 @@ const Categ = ({ categ, handleDeleteClick, user, editStars }) => {
       />
       <form>
         {user !== undefined && categ.user !== undefined && user.username === categ.user.username &&
-        <button class="btn btn-danger" onClick={() =>
+        <button className="btn btn-danger" onClick={() =>
           handleDeleteClick(categ)}>
           Delete
         </button>

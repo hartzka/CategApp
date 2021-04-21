@@ -18,7 +18,7 @@ const MainCategForm = ({
             <FormControl value={newMainCateg} onChange={handleMainCategChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
           </InputGroup>
         </div>
-        <button class="btn btn-warning" type="submit" id="save_categ">Create</button>
+        <button className="btn btn-warning" type="submit" id="save_categ">Create</button>
       </form>
       <br></br>
     </div>
