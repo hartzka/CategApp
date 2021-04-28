@@ -17,4 +17,4 @@
 | 19.4. |  8   | Erillinen näkymä yksittäiselle objektille (klikkaamalla kuvaa) ja yksittäisen objektin editointi. Mahdollisuus myös vaihtaa kuva jälkikäteen. |
 | 21.4. |  5   | Cypress-testejä ja frontin unit-testejä, babelrc, babelconfig |
 | 28.4. |  6   | Paljon refaktorointia, linttausvirheet kuntoon, user pagen sisällön rajoitus |
-| yht   |  62  | |
+| yht   |  66  | |
