@@ -17,24 +17,24 @@ const favoriteCateg = (categs) => {
   });
 
   return {
-      mainCateg: maxStars.mainCateg,
-      subCateg: maxStars.subCateg,
-      name: maxStars.name,
-      description: maxStars.description,
-      isMainCateg: maxStars.isMainCateg,
-      stars: maxStars.stars
-    }
+    mainCateg: maxStars.mainCateg,
+    subCateg: maxStars.subCateg,
+    name: maxStars.name,
+    description: maxStars.description,
+    isMainCateg: maxStars.isMainCateg,
+    stars: maxStars.stars
+  }
 }
 
 const mostCategs = (categs) => {
-    return _(categs)
+  return _(categs)
     .groupBy('mainCateg')
     .map((c, mainCateg) => ({ mainCateg, categs: c.length }))
     .maxBy('categs')
 }
 
 const mostStars = (categs) => {
-    return _(categs)
+  return _(categs)
     .groupBy('mainCateg')
     .map((categs, mainCateg) => {
         const stars = categs.reduce(function(sum, categ) {

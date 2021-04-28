@@ -60,10 +60,10 @@ describe('posting of a categ', () => {
 
   test('a valid categ can be added ', async () => {
     const newCateg = {
-      mainCateg: "a", 
-      subCateg: "b", 
-      name: "c", 
-      description: "d", 
+      mainCateg: 'a', 
+      subCateg: 'b', 
+      name: 'c', 
+      description: 'd', 
       stars: 0,
       isMainCateg: false
     }
@@ -79,16 +79,14 @@ describe('posting of a categ', () => {
     expect(categsAtEnd.length).toBe(helper.initialCategs.length + 1)
 
     const names = categsAtEnd.map(c => c.name)
-    expect(names).toContain(
-      'c'
-    )
+    expect(names).toContain('c')
   })
 
   test('unvalid categ can not be added ', async () => {
     const newCateg = {
-      mainCateg: "a", 
-      subCateg: "b",
-      description: "d", 
+      mainCateg: 'a', 
+      subCateg: 'b',
+      description: 'd', 
       stars: 0
     }
 
@@ -105,10 +103,10 @@ describe('posting of a categ', () => {
 
   test('categ without stars has 0 stars', async () => {
     const newCateg = {
-      mainCateg: "a", 
-      subCateg: "b", 
-      name: "c", 
-      description: "d",
+      mainCateg: 'a', 
+      subCateg: 'b', 
+      name: 'c', 
+      description: 'd',
       isMainCateg: false
     }
 
@@ -123,7 +121,7 @@ describe('posting of a categ', () => {
 
   test('categ without name is not added', async () => {
     const newCateg = {
-      description: "d"
+      description: 'd'
     }
 
     await api
@@ -141,10 +139,10 @@ describe('when categ is saved to database', () => {
   let result
   beforeEach(async () => {
     const newCateg = {
-      mainCateg: "a", 
-      subCateg: "b", 
-      name: "c", 
-      description: "d", 
+      mainCateg: 'a', 
+      subCateg: 'b', 
+      name: 'c', 
+      description: 'd', 
       stars: 0,
       isMainCateg: false
     }

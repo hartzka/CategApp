@@ -8,14 +8,14 @@ const Notification = ({ message }) => {
     if (message.type === 'success') {
       return (
         <div>
-          <Alert severity="success">
+          <Alert severity='success'>
             {message.text}
           </Alert>
         </div>
       )
     } else if (message.type === 'error') {
       return (
-        <div className="message error">
+        <div className='message error'>
           {message.text}
         </div>
       )

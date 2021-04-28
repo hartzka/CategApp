@@ -12,24 +12,24 @@ const LoginForm = ({
     <h2>Log in to application</h2>
     <form onSubmit={handleLogin}>
       <div>
-        <TextField label="username"
-          id="username"
-          type="text"
+        <TextField label='username'
+          id='username'
+          type='text'
           value={username}
-          name="Username"
+          name='Username'
           onChange={({ target }) => setUsername(target.value)}
         />
       </div>
       <div>
-        <TextField label="password"
-          id="password"
-          type="password"
+        <TextField label='password'
+          id='password'
+          type='password'
           value={password}
-          name="Password"
+          name='Password'
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type="submit" class="btn btn-success" id="login-button">login</button>
+      <button type='submit' class='btn btn-success' id='login-button'>login</button>
     </form>
   </div>
 )

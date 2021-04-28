@@ -8,10 +8,10 @@ test('<MainCategForm /> updates parent state and calls onSubmit', () => {
   const handleMainCategChange = jest.fn()
 
   const component = render(
-    <MainCategForm 
-      addMainCateg={addMainCateg} 
+    <MainCategForm
+      addMainCateg={addMainCateg}
       newMainCateg='newcateg'
-      handleMainCategChange={handleMainCategChange} 
+      handleMainCategChange={handleMainCategChange}
     />
   )
 

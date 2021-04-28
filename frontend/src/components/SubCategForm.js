@@ -22,32 +22,33 @@ const SubCategForm = ({
       <form onSubmit={addSubCateg}>
         <div>
           <h3>{title}</h3>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Main category</span>
+          <div class='input-group mb-3'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text' id='inputGroup-sizing-default'>Main category</span>
             </div>
             <input
               value={selectedCateg.mainCateg}
               disabled={true}
-              id="main-category"
-              type="text"
-              class="form-control"
-              aria-describedby="inputGroup-sizing-default" />
+              id='main-category'
+              type='text'
+              class='form-control'
+              aria-describedby='inputGroup-sizing-default'
+            />
           </div>
 
           <InputGroup>
             <FormControl
-              placeholder="Type new subcategory or select existing one (optional)"
+              placeholder='Type new subcategory or select existing one (optional)'
               value={newSubCateg}
               onChange={handleSubCategChange}
-              id="subcategory"
+              id='subcategory'
             />
 
             <DropdownButton
               as={InputGroup.Append}
-              variant="outline-secondary"
+              variant='outline-secondary'
               title={selectedNewSubCateg}
-              id="input-group-dropdown-2"
+              id='input-group-dropdown-2'
               onSelect={e =>
                 handleSelectedNewSubCategChange(e)
               }
@@ -58,40 +59,40 @@ const SubCategForm = ({
             </DropdownButton>
           </InputGroup>
 
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+          <div class='input-group mb-3'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text' id='inputGroup-sizing-default'>Name</span>
             </div>
             <input
               value={newName}
               onChange={handleNameChange}
-              id="name"
-              type="text"
-              class="form-control"
-              aria-describedby="inputGroup-sizing-default" />
+              id='name'
+              type='text'
+              class='form-control'
+              aria-describedby='inputGroup-sizing-default' />
           </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+          <div class='input-group mb-3'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text' id='inputGroup-sizing-default'>Description</span>
             </div>
             <input
               value={newDescription}
               onChange={handleDescriptionChange}
-              id="description"
-              type="text"
-              class="form-control"
-              aria-describedby="inputGroup-sizing-default" />
+              id='description'
+              type='text'
+              class='form-control'
+              aria-describedby='inputGroup-sizing-default' />
           </div>
         </div>
-        <div className="process">
-          <h4 className="process_heading">Image</h4>
-          <p className="process_details">Upload image to server</p>
+        <div className='process'>
+          <h4 className='process_heading'>Image</h4>
+          <p className='process_details'>Upload image to server</p>
 
-          <input type="file" className="process_upload-btn" onChange={handleImageChange} />
-          <img src={newImage !== undefined ? newImage.multerImage : null} id="upload-image" className="process_image" />
+          <input type='file' className='process_upload-btn' onChange={handleImageChange} />
+          <img alt = '' src={newImage !== undefined ? newImage.multerImage : null} id='upload-image' className='process_image' />
         </div>
         <br></br>
-        <button class="btn btn-success" type="submit" id="save_blog">Create</button>
+        <button class='btn btn-success' type='submit' id='save_blog'>Create</button>
       </form>
       <br></br>
     </div>

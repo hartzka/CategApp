@@ -9,15 +9,15 @@ exports.uploadFile = (fileName) => {
   const fileContent = fs.readFileSync(fileName);
 
   const params = {
-      Bucket: process.env.S3_BUCKET_NAME,
-      Key: fileName,
-      Body: fileContent
+    Bucket: process.env.S3_BUCKET_NAME,
+    Key: fileName,
+    Body: fileContent
   }
 
   s3.upload(params, function(err, data) {
-      if (err) {
-          throw err;
-      }
-      console.log(`File uploaded successfully. ${data.Location}`);
+    if (err) {
+      throw err;
+    }
+    console.log(`File uploaded successfully. ${data.Location}`);
   })
 }

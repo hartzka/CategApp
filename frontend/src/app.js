@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Categ from './components/Categ'
-import CategDetails from './components/CategDetails'
 import Notification from './components/Notification'
 import categService from './services/categs'
 import loginService from './services/login'
@@ -12,6 +10,7 @@ import Togglable from './components/Togglable'
 import CategView from './components/CategView'
 import Menu from './components/Menu'
 import Users from './components/Users'
+import MainPage from './components/MainPage'
 import {
   BrowserRouter as Router,
   Switch, Route
@@ -221,6 +220,23 @@ const App = () => {
     )
   }
 
+  const mainPage = () => (
+    <MainPage
+      mainCategForm={mainCategForm}
+      selectedCateg={selectedCateg}
+      subCategForm={subCategForm}
+      categDropDown={categDropDown}
+      subCategDropDown={subCategDropDown}
+      categs={categs}
+      selectedSubCateg={selectedSubCateg}
+      handleDeleteClick={handleDeleteClick}
+      user={user}
+      editStars={editStars}
+      initializeFields={initializeFields}
+      categRef={categRef}
+    />
+  )
+
   const initializeFields = () => {
     setSelectedNewSubCateg('')
     setNewMainCateg('')
@@ -233,25 +249,26 @@ const App = () => {
 
   const categDropDown = () => (
     <div>
-      <DropdownButton id="dropdown-basic-button" title={selectedCateg.mainCateg}
+      <DropdownButton id='dropdown-basic-button' title={selectedCateg.mainCateg}
         onSelect={id =>
           handleSelectedCategChange(id)
         }
       >
         {categs.map(categ => (
           categ.isMainCateg === true && categ.user.username === user.username &&
-        <Dropdown.Item eventKey={categ.id}>{categ.mainCateg}</Dropdown.Item>
+          <Dropdown.Item eventKey={categ.id}>{categ.mainCateg}</Dropdown.Item>
         ))}
       </DropdownButton>
-      {selectedCateg.mainCateg !== '' && <button className="btn btn-danger" onClick={() =>
+      {selectedCateg.mainCateg !== '' && <button className='btn btn-danger' onClick={() =>
         handleDeleteClick(selectedCateg)}>
         Delete category
-      </button>}
+      </button>
+      }
     </div>
   )
 
   const subCategDropDown = () => (
-    <DropdownButton id="dropdown-variants-Secondary" title={selectedSubCateg}
+    <DropdownButton id='dropdown-variants-Secondary' title={selectedSubCateg}
       onSelect={c =>
         handleSelectedSubCategChange(c)
       }
@@ -297,7 +314,7 @@ const App = () => {
           text: `New category ${newMainCateg} created`
         }
         setMessage(newMessage)
-      }).catch(error => {
+      }).catch(e => {
         const newMessage = {
           type: 'error',
           text: 'error creating category, name must not be empty'
@@ -332,7 +349,7 @@ const App = () => {
           text: `New item ${newName} created`
         }
         setMessage(newMessage)
-      }).catch(error => {
+      }).catch(e => {
         const newMessage = {
           type: 'error',
           text: 'error creating item, name must not be empty and image in correct format'
@@ -369,7 +386,7 @@ const App = () => {
           text: `Category ${updatedCateg.name} updated`
         }
         setMessage(newMessage)
-      }).catch(error => {
+      }).catch(e => {
         const newMessage = {
           type: 'error',
           text: 'error updating item'
@@ -388,11 +405,10 @@ const App = () => {
     subCategDataSet = false
   }
 
-  const editStars = (c) => {
-    const id = c.id
-
+  const editStars = (categ) => {
+    const id = categ.id
     const categToUpdate = categs.find(categ => categ.id === id)
-    categToUpdate.stars = c.stars
+    categToUpdate.stars = categ.stars
     categService.update(id, categToUpdate)
       .then(response => {
         setCategs(categs.map(categ => categ.id !== id ? categ : response))
@@ -439,7 +455,7 @@ const App = () => {
             handleSelectedCategChange(c.id)
           }
         })
-      }).catch(error => {
+      }).catch(e => {
         const newMessage = {
           type: 'error',
           text: 'The item has already been removed from the server!'
@@ -449,15 +465,14 @@ const App = () => {
     setTimeout(() => { setMessage(null) }, 4000)
   }
 
-
-  const handleMainCategChange = (event) => {
-    setNewMainCateg(event.target.value)
+  const handleMainCategChange = (e) => {
+    setNewMainCateg(e.target.value)
     setSelectedSubCateg('Show all')
   }
 
-  const handleSubCategChange = (event) => {
+  const handleSubCategChange = (e) => {
     setSelectedNewSubCateg('')
-    setNewSubCateg(event.target.value)
+    setNewSubCateg(e.target.value)
   }
 
   const handleSelectedSubCategChange = (e) => {
@@ -469,21 +484,20 @@ const App = () => {
     setNewSubCateg('')
   }
 
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
+  const handleNameChange = (e) => {
+    setNewName(e.target.value)
   }
 
-  const handleDescriptionChange = (event) => {
-    setNewDescription(event.target.value)
+  const handleDescriptionChange = (e) => {
+    setNewDescription(e.target.value)
   }
 
   const handleImageChange = (e) => {
     const imageFormObj = new FormData()
+    const multerImage = URL.createObjectURL(e.target.files[0])
 
     imageFormObj.append('imageName', 'multer-image-' + Date.now())
     imageFormObj.append('imageData', e.target.files[0])
-
-    const multerImage = URL.createObjectURL(e.target.files[0])
     imageFormObj.append('multerImage', multerImage)
 
     imageService.create(imageFormObj)
@@ -515,36 +529,19 @@ const App = () => {
         <Menu user={user} handleLogout={handleLogout} />
         <Notification message={message} />
         <Switch>
-          <Route path="/categ/:id" render={({ match }) =>
+          <Route path='/categ/:id' render={({ match }) =>
             <CategView id={match.params.id} categs={categs} initializeFields={initializeFields} editCategForm={editCategForm} />
           }>
           </Route>
-          <Route path="/users">
-            <Users users={users}/>
+          <Route path='/users'>
+            {user && user.role === 'admin' ?
+              <Users users={users} /> :
+              <h2>Not authorized :(</h2>
+            }
           </Route>
-          <Route path="/">
+          <Route path='/'>
             {user === null ?
-              loginForm() :
-              <div>
-                <p>{mainCategForm()} {selectedCateg.mainCateg !== '' && subCategForm()}</p>
-                <div className="webkit-box">
-                  {selectedCateg.mainCateg !== '' && categDropDown()} {selectedCateg.mainCateg !== '' && subCategDropDown()}
-                </div>
-                <br></br>
-                <div>
-                  {categs.map(categ =>
-                    categ.isMainCateg === false &&
-                    categ.mainCateg === selectedCateg.mainCateg &&
-                    (selectedSubCateg === 'Show all' || selectedSubCateg === categ.subCateg) &&
-                    <div className="categ">
-                      <Categ key={categ.id} categ={categ} handleDeleteClick={handleDeleteClick} user={user} editStars={editStars} />
-                      <Togglable buttonLabel='View' cancelLabel='Hide' initializeFields={initializeFields} className="view" ref={categRef}>
-                        <CategDetails key={categ.id} categ={categ} />
-                      </Togglable>
-                    </div>
-                  )}
-                </div>
-              </div>
+              loginForm() : mainPage()
             }
           </Route>
         </Switch>

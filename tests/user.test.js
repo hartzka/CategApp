@@ -9,7 +9,7 @@ const User = require('../models/user')
 
 beforeEach(async () => {
   await User.deleteMany({})
-  const user = new User({ username: 'root', password: "passwordHash" })
+  const user = new User({ username: 'root', password: 'passwordHash' })
   await user.save()
 })
 

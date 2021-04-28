@@ -11,14 +11,14 @@ const MainCategForm = ({
       <form onSubmit={addMainCateg}>
         <div>
           <h3>Add new category</h3>
-          <InputGroup size="lg">
+          <InputGroup size='lg'>
             <InputGroup.Prepend>
-              <InputGroup.Text id="inputGroup-sizing-lg">Category name</InputGroup.Text>
+              <InputGroup.Text id='inputGroup-sizing-lg'>Category name</InputGroup.Text>
             </InputGroup.Prepend>
-            <FormControl value={newMainCateg} onChange={handleMainCategChange} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
+            <FormControl value={newMainCateg} onChange={handleMainCategChange} aria-label='Large' aria-describedby='inputGroup-sizing-sm' />
           </InputGroup>
         </div>
-        <button className="btn btn-warning" type="submit" id="save_categ">Create</button>
+        <button className='btn btn-warning' type='submit' id='save_categ'>Create</button>
       </form>
       <br></br>
     </div>

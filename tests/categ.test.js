@@ -3,11 +3,11 @@ const helper = require('./test_helper')
 
 const listWithOneCateg = [
   { 
-    _id: "5a422a851b54a676234d17f5", 
-    mainCateg: "courses", 
-    subCateg: "fuksi", 
-    name: "tira", 
-    description: "tietorakenteet ja algot", 
+    _id: '5a422a851b54a676234d17f5', 
+    mainCateg: 'courses', 
+    subCateg: 'fuksi', 
+    name: 'tira', 
+    description: 'tietorakenteet ja algot', 
     stars: 5,
     isMainCateg: false,
     __v: 0 
@@ -37,10 +37,10 @@ describe('favorite categ', () => {
   test('when list has only one categ equals that', () => {
     const result = listHelper.favoriteCateg(listWithOneCateg)
     expect(result).toEqual({
-      mainCateg: "courses", 
-      subCateg: "fuksi", 
-      name: "tira", 
-      description: "tietorakenteet ja algot", 
+      mainCateg: 'courses', 
+      subCateg: 'fuksi', 
+      name: 'tira', 
+      description: 'tietorakenteet ja algot', 
       stars: 5,
       isMainCateg: false
     })
@@ -49,10 +49,10 @@ describe('favorite categ', () => {
   test('returns the categ with max stars', () => {
     const result = listHelper.favoriteCateg(helper.initialCategs)
     expect(result).toEqual({
-      mainCateg: "courses", 
-      subCateg: "fuksi", 
-      name: "tira", 
-      description: "tietorakenteet ja algot", 
+      mainCateg: 'courses', 
+      subCateg: 'fuksi', 
+      name: 'tira', 
+      description: 'tietorakenteet ja algot', 
       stars: 5,
       isMainCateg: false
     })
@@ -68,7 +68,7 @@ describe('most stars', () => {
   test('mostStars returns the correct result', () => {
     const result = listHelper.mostStars(helper.initialCategs);
     expect(result).toEqual({
-      mainCateg: "courses", 
+      mainCateg: 'courses', 
       stars: 12
     });
   })

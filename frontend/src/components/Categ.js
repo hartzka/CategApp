@@ -12,20 +12,20 @@ const Categ = ({ categ, handleDeleteClick, user, editStars }) => {
     <div>
       <h4>{categ.name}</h4>
       <Link to={`/categ/${categ.id}`}>
-        <img src={categ.image !== undefined ? `${categ.image.imageData}` : `${DefaultImg}`} className="process__image" />
+        <img alt = '' src={categ.image !== undefined ? `${categ.image.imageData}` : `${DefaultImg}`} className='process__image' />
       </Link>
       <StarRatingComponent
-        name="rate1"
+        name='rate1'
         starCount={5}
         value={categ.stars}
         onStarClick={onStarClick}
       />
       <form>
         {user !== undefined && categ.user !== undefined && user.username === categ.user.username &&
-        <button className="btn btn-danger" onClick={() =>
-          handleDeleteClick(categ)}>
-          Delete
-        </button>
+          <button className='btn btn-danger' onClick={() =>
+            handleDeleteClick(categ)}>
+            Delete
+          </button>
         }
       </form>
     </div>

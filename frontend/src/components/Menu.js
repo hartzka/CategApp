@@ -8,21 +8,21 @@ const Menu = ({ user, handleLogout }) => {
     color: 'white'
   }
   return (
-    <Navbar collapseOnSelect expand="lg" variant="light">
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="#" as="span">
-            <Link style={style} to="/">categories</Link>
+    <Navbar collapseOnSelect expand='lg' variant='light'>
+      <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+      <Navbar.Collapse id='responsive-navbar-nav'>
+        <Nav className='mr-auto'>
+          <Nav.Link href='#' as='span'>
+            <Link style={style} to='/'>categories</Link>
           </Nav.Link>
-          <Nav.Link href="#" as="span">
-            <Link style={style} to="/users">users</Link>
+          <Nav.Link href='#' as='span'>
+            <Link style={style} to='/users'>users</Link>
           </Nav.Link>
-          <Nav.Link href="#" as="span">
+          <Nav.Link href='#' as='span'>
             {user !== null &&
             <form onSubmit={handleLogout}>
               <p>{user.name} logged in
-                <button class="btn btn-danger" type="submit">logout</button>
+                <button class='btn btn-danger' type='submit'>logout</button>
               </p>
             </form>
             }

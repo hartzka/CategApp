@@ -12,7 +12,7 @@ const Users = ({ users }) => {
             <th>Category items created</th>
           </tr>
           {users.map(user =>
-            <tr align="left">
+            <tr align='left'>
               <th>{user.name}</th>
               <th>{user.categs.length}</th>
             </tr>
