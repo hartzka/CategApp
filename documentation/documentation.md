@@ -16,7 +16,7 @@ Testing backend: `npm test`
 
 Linting frontend: `npm run eslint`
 
-To run only frontend locally, run `npm start` in folder `frontend`. Frontend will run locally on port `3000`.
+To run only frontend locally, run `npm start` in folder `frontend/`. Frontend will run locally on port `3000`.
 
 Deploying to heroku: `npm run deploy:full` or `npm run deploy` or `git push heroku master`
 
