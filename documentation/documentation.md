@@ -14,9 +14,11 @@ The app will run on address `http://localhost:3001/`.
 
 Testing backend: `npm test`
 
-Linting: `npm run lint`
+Linting frontend: `npm run eslint`
 
-Deploying to heroku: `npm run deploy:full` or `npm run deploy`
+To run only frontend locally, run `npm start` in folder `frontend`. Frontend will run locally on port `3000`.
+
+Deploying to heroku: `npm run deploy:full` or `npm run deploy` or `git push heroku master`
 
 ## Env-variables
 
