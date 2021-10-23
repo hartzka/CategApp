@@ -1,7 +1,7 @@
-Full Stack -harjoitustyö
+Full Stack -application
 
 Heroku: https://categapp.herokuapp.com/
 
-[Dokumentaatio](https://github.com/hartzka/CategApp/blob/master/documentation/documentation.md) 
+[Documentation](https://github.com/hartzka/CategApp/blob/master/documentation/documentation.md) 
 
-[Kirjanpito](https://github.com/hartzka/CategApp/blob/master/kirjanpito.md)
+[Bookkeeping](https://github.com/hartzka/CategApp/blob/master/kirjanpito.md)
