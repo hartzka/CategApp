@@ -2,7 +2,7 @@
 
 | päivä | aika | mitä tein  |
 | :----:|:-----| :-----|
-| 18.3. |  1   | Projektin aloitus |
+| 18.3.2021 |  1   | Projektin aloitus |
 | 19.3. |  4   | Alustava rakenne backendille ja frontendille, sovellus herokuun |
 | 22.3. |  9   | Login- ja logout-toiminnallisuudet. Routerit kategorioille, loginille, usereille ja testaamista aloitettu. Users page. Bootstrap otettu käyttöön. MongoDB:n alustus. Modelien luonti kategorioille ja usereille sekä requesteja tietokantaan.
 | 23.3. |  2   | Frontendin buildin fixaaminen. Sovelluksen etusivua ei näkynyt herokussa, nyt sovellus toimii myös siellä. Env-muuttujien lisääminen myös herokuun. Dokumentaatiota. |
@@ -17,4 +17,5 @@
 | 19.4. |  8   | Erillinen näkymä yksittäiselle objektille (klikkaamalla kuvaa) ja yksittäisen objektin editointi. Mahdollisuus myös vaihtaa kuva jälkikäteen. |
 | 21.4. |  5   | Cypress-testejä ja frontin unit-testejä, babelrc, babelconfig |
 | 28.4. |  6   | Paljon refaktorointia, linttausvirheet kuntoon, user pagen sisällön rajoitus |
-| yht   |  66  | |
+| 23.10.|  4   | Dokumentaation päivitystä, käyttäjien ja objektien luomista Herokussa |
+| yht   |  70  | |
