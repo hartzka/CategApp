@@ -534,14 +534,16 @@ const App = () => {
           }>
           </Route>
           <Route path='/users'>
-            {user && user.role === 'admin' ?
-              <Users users={users} /> :
-              <h2>Not authorized :(</h2>
+            {user ?
+              user.role === 'admin' ?
+                <Users users={users} /> :
+                <h2>Not authorized :(</h2> :
+                loginForm()
             }
           </Route>
           <Route path='/'>
-            {user === null ?
-              loginForm() : mainPage()
+            {user ?
+              mainPage() : loginForm()
             }
           </Route>
         </Switch>

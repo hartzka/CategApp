@@ -8,11 +8,12 @@ const LoginForm = ({
   password,
   setPassword
 }) => (
-  <div>
-    <h2>Log in to application</h2>
+  <div class='login-container'>
+    <h2>Log in to Application</h2>
     <form onSubmit={handleLogin}>
       <div>
-        <TextField label='username'
+        <TextField
+          label='username'
           id='username'
           type='text'
           value={username}
@@ -21,7 +22,8 @@ const LoginForm = ({
         />
       </div>
       <div>
-        <TextField label='password'
+        <TextField
+          label='password'
           id='password'
           type='password'
           value={password}
@@ -29,7 +31,7 @@ const LoginForm = ({
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type='submit' class='btn btn-success' id='login-button'>login</button>
+      <button type='submit' class='btn btn-success' id='login-button'>Login</button>
     </form>
   </div>
 )

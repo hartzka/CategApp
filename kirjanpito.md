@@ -18,4 +18,5 @@
 | 21.4. |  5   | Cypress-testejä ja frontin unit-testejä, babelrc, babelconfig |
 | 28.4. |  6   | Paljon refaktorointia, linttausvirheet kuntoon, user pagen sisällön rajoitus |
 | 23.10.|  4   | Dokumentaation päivitystä, käyttäjien ja objektien luomista Herokussa |
-| yht   |  70  | |
+| 27.9.2022 |  7   | Lokaaliympäristön fiksailua, yleisen ulkoasun siistimistä (myös mobiili), login-pagen parannus, nav-elementin piilotus loginissa, päivitys Herokuun |
+| yht   |  77  | |

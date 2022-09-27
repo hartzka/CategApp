@@ -92,7 +92,7 @@ const SubCategForm = ({
           <img alt = '' src={newImage !== undefined ? newImage.multerImage : null} id='upload-image' className='process_image' />
         </div>
         <br></br>
-        <button class='btn btn-success' type='submit' id='save_blog'>Create</button>
+        <button class='btn btn-success' type='submit'>Create</button>
       </form>
       <br></br>
     </div>

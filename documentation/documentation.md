@@ -8,7 +8,7 @@ In the project root folder, run:
 * npm run build:ui
 * npm start
 
-Check also, that frontend dependencies are installed with `npm install` in folder `frontend`.
+Check also that frontend dependencies are installed with `npm install` in `/frontend`.
 
 The app will run on address `http://localhost:3001/`.
 
@@ -16,7 +16,7 @@ Testing backend: `npm test`
 
 Linting frontend: `npm run eslint`
 
-To run only frontend locally, run `npm start` in folder `frontend/`. Frontend will run locally on port `3000`.
+To run only frontend locally, run `npm start` in `frontend/`. Frontend will run locally on port `3000`.
 
 Deploying to heroku: `npm run deploy:full` or `npm run deploy` or `git push heroku master`
 
@@ -40,7 +40,7 @@ https://www.npmjs.com/package/react-star-rating-component
 
 ## Heroku
 
-The project is running in Heroku (https://categapp.herokuapp.com/).
+The project is running on Heroku (https://categapp.herokuapp.com/).
 Username and password for testing purposes:
 username
 password
