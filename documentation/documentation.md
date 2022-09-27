@@ -22,7 +22,7 @@ Deploying to heroku: `npm run deploy:full` or `npm run deploy` or `git push hero
 
 ## Env-variables
 
-Env-variables are used in the project. Create file `.env` in the root folder and add the following items to it:
+Env-variables are used in the project. Create a `.env` file in the root folder and add the following items to it:
 
 * `SECRET=` (For authentication)
 * `MONGODB_URI=` (For database, MongoDB-address)
@@ -30,6 +30,8 @@ Env-variables are used in the project. Create file `.env` in the root folder and
 * `AWS_ACCESS_KEY_ID=` (Your AWS key ID)
 * `AWS_SECRET_ACCESS_KEY=` (Your AWS secret key)
 * `S3_BUCKET_NAME=` (Your AWS S3 bucket name)
+
+`.env.example` shows an example.
 
 ## React-star-rating-component
 
