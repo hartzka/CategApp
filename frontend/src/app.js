@@ -538,7 +538,7 @@ const App = () => {
               user.role === 'admin' ?
                 <Users users={users} /> :
                 <h2>Not authorized :(</h2> :
-                loginForm()
+              loginForm()
             }
           </Route>
           <Route path='/'>

@@ -12,7 +12,7 @@
     "deploy:full": "npm run build:ui && git add . && git commit -m heroku && git push && npm run deploy",
     "logs:prod": "heroku logs --tail",
     "lint": "eslint .",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+    "test": "cross-env NODE_ENV=test jest --verbose",
     "start:test": "cross-env NODE_ENV=test node index.js"
   },
   "author": "",
@@ -26,6 +26,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-jest": "^23.8.2",
     "jest": "^25.1.0",
+    "jest-transform-stub": "^2.0.0",
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2"
   },
@@ -45,6 +46,12 @@
   },
   "jest": {
     "verbose": true,
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "transform": {
+      ".+\\.(css|scss|png|jpg|svg)$": "jest-transform-stub"
+    },
+    "testPathIgnorePatterns" : [
+      "frontend/src/tests"
+    ]
   }
 }

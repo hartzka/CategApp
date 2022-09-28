@@ -14,7 +14,7 @@ The app will run on address `http://localhost:3001/`.
 
 Testing backend: `npm test`
 
-Linting frontend: `npm run eslint`
+Linting frontend: `cd frontend/ && npm run eslint`
 
 To run only frontend locally, run `npm start` in `frontend/`. Frontend will run locally on port `3000`.
 

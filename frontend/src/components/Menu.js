@@ -20,7 +20,7 @@ const Menu = ({ user, handleLogout }) => {
               <Link style={style} to='/users'>users</Link>
             </Nav.Link>
             <Nav.Link href='#' as='span'>
-              <Link style={{padding: '5px', color: 'black'}}>{user.name} logged in</Link>
+              <Link style={{ padding: '5px', color: 'black' }}>{user.name} logged in</Link>
             </Nav.Link>
             <Nav.Link href='#' as='span'>
               <form onSubmit={handleLogout}>
@@ -30,7 +30,7 @@ const Menu = ({ user, handleLogout }) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-    : null
+      : null
   )
 }
 
