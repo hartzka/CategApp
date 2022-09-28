@@ -1,0 +1,32 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: npm install
+        run: npm install
+      - name: build
+        run: npm run build:ui
+      - name: lint
+        run: cd frontend/ && npm run eslint && cd ..
+      - name: test
+        run: npm test
+      - name: Bump version and push tag
+        if: ${{ !contains(join(toJson(github.event.commits.*.message)), '#skip') && github.event_name == 'push' }}
+        uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
