@@ -9,11 +9,13 @@ const Users = ({ users }) => {
         <tbody>
           <tr>
             <th></th>
+            <th>Role</th>
             <th>Category items created</th>
           </tr>
           {users.map(user =>
             <tr align='left'>
               <th>{user.name}</th>
+              <th>{user.role}</th>
               <th>{user.categs.length}</th>
             </tr>
           )}

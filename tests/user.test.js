@@ -21,6 +21,7 @@ describe('when there is initially one user at db', () => {
       username: 'abc',
       name: 'abc',
       password: 'def',
+      role: 'user'
     }
 
     await api
@@ -41,6 +42,7 @@ describe('when there is initially one user at db', () => {
       username: 'root',
       name: 'root',
       password: 'hash',
+      role: 'user'
     }
 
     await api
@@ -61,6 +63,7 @@ describe('when there is initially one user at db', () => {
       username: 'aaa',
       name: 'Jaa',
       password: 'b',
+      role: 'admin'
     }
 
     const result = await api

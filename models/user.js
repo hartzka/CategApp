@@ -8,6 +8,11 @@ const userSchema = mongoose.Schema({
   },
   name: String,
   passwordHash: String,
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  },
   categs: [
     {
       type: mongoose.Schema.Types.ObjectId,
