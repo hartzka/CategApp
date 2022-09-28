@@ -8,12 +8,14 @@ const Users = ({ users }) => {
       <Table striped>
         <tbody>
           <tr>
-            <th></th>
+            <th>Username</th>
+            <th>Name</th>
             <th>Role</th>
             <th>Category items created</th>
           </tr>
           {users.map(user =>
             <tr align='left'>
+              <th>{user.username}</th>
               <th>{user.name}</th>
               <th>{user.role}</th>
               <th>{user.categs.length}</th>
