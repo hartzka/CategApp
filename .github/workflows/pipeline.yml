@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  simple_deployment_pipeline:
+  deployment_pipeline:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -18,6 +18,8 @@ jobs:
           node-version: '12.x'
       - name: npm install
         run: npm install
+      - name: npm install frontend
+        run: cd frontend/ && npm install && cd ..
       - name: build
         run: npm run build:ui
       - name: lint
