@@ -8,6 +8,7 @@ const usersRouter = require('./controllers/users')
 const middleware = require('./utils/middleware')
 const loginRouter = require('./controllers/login')
 const imageRouter = require('./controllers/image')
+const defaultRouter = require('./controllers/default')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
@@ -30,10 +31,23 @@ app.use(middleware.requestLogger)
 app.use('/api/users', usersRouter)
 app.use('/api/categ', categRouter)
 app.use('/api/login', loginRouter)
+app.use('/', defaultRouter)
 app.use('/image', imageRouter)
 app.use('/uploads', express.static('uploads'))
 app.use(bodyParser.json({limit: '50mb'}))
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+
+  if (req.method == 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+    return res.status(200).json({});
+  }
+
+  next();
+});
 
 if (process.env.NODE_ENV === 'test') {
   console.log('test mode');

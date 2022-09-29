@@ -12,17 +12,24 @@ const getTokenFrom = request => {
   return null
 }
 
-categRouter.get('/', async (request, response) => {
+categRouter.get('/', async (request, response, next) => {
+  const body = request.body
+  const token = getTokenFrom(request)
+
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
   const categs = await Categ.find({})
-  .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
-  .populate('user', { username: 1, name: 1 })
+    .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
+    .populate('user', { username: 1, name: 1 })
   response.json(categs.map(categ => categ.toJSON()))
 })
 
 categRouter.get('/:id', async (request, response) => {
   const categ = await Categ.findById(request.params.id)
-  .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
-  .populate('user', { username: 1, name: 1 })
+    .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
+    .populate('user', { username: 1, name: 1 })
   if (categ) {
     response.json(categ.toJSON())
   } else {
@@ -83,12 +90,12 @@ categRouter.post('/', async (request, response, next) => {
     image.categ = savedCateg._id
     await image.save()
     const categToBeReturned = await Categ.findById(savedCateg.id)
-    .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
-    .populate('user', { username: 1, name: 1 })
+      .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
+      .populate('user', { username: 1, name: 1 })
     response.json(categToBeReturned.toJSON())
   } else {
     const categToBeReturned = await Categ.findById(savedCateg.id)
-    .populate('user', { username: 1, name: 1 })
+      .populate('user', { username: 1, name: 1 })
     response.json(categToBeReturned.toJSON())
   }
 })
@@ -108,18 +115,18 @@ categRouter.delete('/:id', async (request, response, next) => {
       const user = await User.findById(decodedToken.id)
       await Categ.findByIdAndRemove(categ._id)
       user.categs = user.categs.filter(c => c === categ._id)
-      const updatedUser = await User.findByIdAndUpdate(decodedToken.id, user, { new: true })
-      .populate('categ', {
-        mainCateg: 1, subCateg: 1, description: 1, stars: 1, name: 1
-      })  
+      await User.findByIdAndUpdate(decodedToken.id, user, { new: true })
+        .populate('categ', {
+          mainCateg: 1, subCateg: 1, description: 1, stars: 1, name: 1
+        })  
       response.status(204).end()
     } else {
       response.status(401).json({ error: 'not authorized' })
     }
 
-    } catch (error) {
-      next(error)
-    }
+  } catch (error) {
+    next(error)
+  }
 })
 
 categRouter.put('/:id', async (request, response, next) => {

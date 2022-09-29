@@ -44,27 +44,30 @@ const App = () => {
   const [users, setUsers] = useState([])
 
   useEffect(() => {
-    userService.getAll().then(users => {
-      setUsers(users)
-    })
-  }, [])
-
-  useEffect(() => {
-    categService.getAll().then(categs =>
-      setCategs(categs.sort(function(a,b) {
-        return b.stars-a.stars
-      })))
-  }, [])
-
-  useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       categService.setToken(user.token)
       imageService.setToken(user.token)
+      userService.setToken(user.token)
     }
   }, [])
+
+  useEffect(() => {
+    user &&
+    userService.getAll().then(users => {
+      setUsers(users)
+    })
+  }, [user])
+
+  useEffect(() => {
+    user &&
+    categService.getAll().then(categs =>
+      setCategs(categs.sort(function(a,b) {
+        return b.stars-a.stars
+      })))
+  }, [user])
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -77,6 +80,7 @@ const App = () => {
       )
       categService.setToken(user.token)
       imageService.setToken(user.token)
+      userService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')
@@ -533,7 +537,7 @@ const App = () => {
             <CategView id={match.params.id} categs={categs} initializeFields={initializeFields} editCategForm={editCategForm} />
           }>
           </Route>
-          <Route path='/users'>
+          <Route path='/users' component={Users}>
             {user ?
               user.role === 'admin' ?
                 <Users users={users} /> :

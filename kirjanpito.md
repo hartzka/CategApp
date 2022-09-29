@@ -19,4 +19,6 @@
 | 28.4. |  6   | Paljon refaktorointia, linttausvirheet kuntoon, user pagen sisällön rajoitus |
 | 23.10.|  4   | Dokumentaation päivitystä, käyttäjien ja objektien luomista Herokussa |
 | 27.9.2022 |  7   | Lokaaliympäristön fiksailua, yleisen ulkoasun siistimistä (myös mobiili), login-pagen parannus, nav-elementin piilotus loginissa, päivitys Herokuun |
-| yht   |  77  | |
+| 28.9.2022 |  4   | User roles, mongoDB updates, GitHub Actions, build pipeline Herokuun |
+| 29.9.2022 |  4   | Routers, tokens, authorization fixes |
+| yht.   |  85  | |

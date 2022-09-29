@@ -13,16 +13,16 @@ const Menu = ({ user, handleLogout }) => {
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>
-            <Nav.Link href='#' as='span'>
+            <Nav.Link as='span'>
               <Link style={style} to='/'>categories</Link>
             </Nav.Link>
-            <Nav.Link href='#' as='span'>
+            <Nav.Link as='span'>
               <Link style={style} to='/users'>users</Link>
             </Nav.Link>
-            <Nav.Link href='#' as='span'>
+            <Nav.Link as='span'>
               <Link style={{ padding: '5px', color: 'black' }}>{user.name} logged in</Link>
             </Nav.Link>
-            <Nav.Link href='#' as='span'>
+            <Nav.Link as='span'>
               <form onSubmit={handleLogout}>
                 <button class='btn btn-danger' type='submit' id='logout-button'>Logout</button>
               </form>
