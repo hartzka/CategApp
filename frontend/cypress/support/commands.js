@@ -33,7 +33,7 @@ Cypress.Commands.add('createCategory', ({ name, description, stars }) => {
 
 Cypress.Commands.add('rateCategory', ( name, stars ) => {
   cy.request({
-    url: `http://localhost:3001/api/categ`,
+    url: 'http://localhost:3001/api/categ',
     method: 'GET',
     headers: {
       'Authorization': `bearer ${JSON.parse(localStorage.getItem('loggedUser')).token}`
