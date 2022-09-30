@@ -39,22 +39,23 @@ describe('posting of a categ', () => {
   test('categs are returned as json', async () => {
     await api
       .get('/api/categ')
+      .set(headers)
       .expect(200)
       .expect('Content-Type', /application\/json/)
   })
 
   test('there are correct amount of categs', async () => {
-      const response = await api.get('/api/categ')
+      const response = await api.get('/api/categ').set(headers)
       expect(response.body).toHaveLength(helper.initialCategs.length)
     })
     
   test('the first categ is tira', async () => {
-    const response = await api.get('/api/categ')
+    const response = await api.get('/api/categ').set(headers)
     expect(response.body[0].name).toBe('tira')
   })
 
   test('id is defined correctly', async () => {
-    const response = await api.get('/api/categ')
+    const response = await api.get('/api/categ').set(headers)
     expect(response.body[0].id).toBeDefined()
   })
 
@@ -112,9 +113,10 @@ describe('posting of a categ', () => {
 
     await api
       .post('/api/categ')
+      .set(headers)
       .send(newCateg)
 
-    const response = await api.get('/api/categ')
+    const response = await api.get('/api/categ').set(headers)
 
     expect(response.body[response.body.length-1].stars===0)
   })
@@ -126,10 +128,11 @@ describe('posting of a categ', () => {
 
     await api
       .post('/api/categ')
+      .set(headers)
       .send(newCateg)
-      .expect(401)
+      .expect(400)
 
-    const response = await api.get('/api/categ')
+    const response = await api.get('/api/categ').set(headers)
 
     expect(response.body).toHaveLength(helper.initialCategs.length)
   })

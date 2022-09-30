@@ -15,12 +15,11 @@ test('<MainCategForm /> updates parent state and calls onSubmit', () => {
     />
   )
 
-  const newMainCateg = component.container.querySelector('#newMainCateg')
-  //expect(newMainCateg).toEqual('newcateg')
+  const newMainCateg = component.container.querySelector('#main-categ')
 
-  const form = component.container.querySelector('form')
+  const form = component.container.querySelector('#main-categ-form')
 
-  fireEvent.change(addMainCateg, {
+  fireEvent.change(newMainCateg, {
     target: { value: 'newmaincateg' }
   })
   fireEvent.submit(form)
