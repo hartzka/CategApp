@@ -11,7 +11,7 @@ describe('Category app', function() {
   })
 
   it('Login from is shown', function() {
-    cy.contains('Log in to application')
+    cy.contains('Log in to Application')
   })
 
   describe('Login',function() {
@@ -29,35 +29,34 @@ describe('Category app', function() {
       cy.get('#login-button').click()
 
       cy.contains('wrong credentials').should('not.exist')
-      cy.contains('logout').click()
+      cy.contains('Logout').click()
     })
   })
 
   describe('When logged in', function() {
     beforeEach(function() {
       cy.login({ username: 'bbb', password: 'ccc' })
-      cy.createCategory({ title: 'title', author:'author', url: 'url', likes:0 })
+      cy.createCategory({ name: 'title', description: 'description', stars:0 })
     })
 
     it('A category can be created', function() {
-      cy.contains('new category').click()
-      cy.get('#title').type('new title')
-      cy.get('#author').type('new author')
-      cy.get('#url').type('new url')
-      cy.contains('create').click()
-      cy.contains('new title')
+      cy.contains('New item').click()
+      cy.get('#name').type('new name')
+      cy.get('#description').type('description')
+      cy.get('.btn-success').contains('Create').click()
+      cy.contains('new name')
     })
 
-    it('A category can be liked', function() {
-      cy.contains('view').click()
-      cy.contains('likes: 0')
-      cy.contains('like').click()
-      cy.contains('likes: 1')
+    it('A category can be rated', function() {
+      cy.contains('View').click()
+      cy.contains('stars: 0')
+      cy.rateCategory('title', 3)
+      cy.contains('stars: 3')
     })
 
     it('A category can be deleted', function() {
       cy.contains('title')
-      cy.contains('delete').click()
+      cy.contains('Delete category').click()
       cy.contains('title').should('not.exist')
     })
   })

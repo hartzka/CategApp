@@ -21,4 +21,5 @@
 | 27.9.2022 |  7   | Lokaaliympäristön fiksailua, yleisen ulkoasun siistimistä (myös mobiili), login-pagen parannus, nav-elementin piilotus loginissa, päivitys Herokuun |
 | 28.9.2022 |  4   | User roles, mongoDB updates, GitHub Actions, build pipeline Herokuun |
 | 29.9.2022 |  4   | Routers, tokens, authorization fixes |
-| yht.   |  85  | |
+| 30.9.2022 |  2   | Fixing Cypress tests |
+| yht.   |  87  | |

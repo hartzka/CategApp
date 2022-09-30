@@ -146,7 +146,6 @@ categRouter.put('/:id', async (request, response, next) => {
     image.categ = categ._id
     await image.save()
   }
-
   const updatedCateg = await Categ.findByIdAndUpdate(request.params.id, categ, { new: true })
     .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
     .populate('user', { username: 1, name: 1 })

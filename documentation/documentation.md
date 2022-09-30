@@ -16,6 +16,8 @@ Testing backend: `npm test`
 
 Linting frontend: `cd frontend/ && npm run eslint`
 
+Frontend cypress tests: `npm run start:test` and (in another terminal) `cd frontend/ && npm run cypress:open`
+
 To run only frontend locally, run `npm start` in `frontend/`. Frontend will run locally on port `3000`.
 
 Deploying to heroku: `npm run deploy:full` or `npm run deploy` or `git push heroku master`
