@@ -20,6 +20,8 @@ jobs:
         run: npm install
       - name: npm install frontend
         run: cd frontend/ && npm install && cd ..
+      - name: build frontend
+        run: npm run build:ui
       - name: lint
         run: cd frontend/ && npm run eslint && cd ..
       - name: Bump version and push tag
