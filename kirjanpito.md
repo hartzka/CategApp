@@ -22,4 +22,4 @@
 | 28.9.2022 |  4   | User roles, mongoDB updates, GitHub Actions, build pipeline Herokuun |
 | 29.9.2022 |  4   | Routers, tokens, authorization fixes |
 | 30.9.2022 |  3   | Fixing Cypress tests, frontend tests |
-| yht.   |  87  | |
+| yht.   |  88  | |
