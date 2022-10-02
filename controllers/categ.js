@@ -13,7 +13,6 @@ const getTokenFrom = request => {
 }
 
 categRouter.get('/', async (request, response, next) => {
-  const body = request.body
   const token = getTokenFrom(request)
 
   const decodedToken = jwt.verify(token, process.env.SECRET)

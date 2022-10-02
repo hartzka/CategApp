@@ -16,7 +16,9 @@ const CategView = ({ id, categs, editCategForm, initializeFields }) => {
           {categ.stars === 0 && <p>unrated</p>}
           {categ.stars === 1 && <p>{categ.stars} star</p>}
           {categ.stars > 1 && <p>{categ.stars} stars</p>}
-          <img src={categ.image !== undefined ? `${categ.image.imageData}` : ''} alt='' />
+          <Link to={`/image/${categ.id}`}>
+            <img src={categ.image !== undefined ? `${categ.image.imageData}` : ''} alt='' />
+          </Link>
           <div>
             {editCategForm(id)}
           </div>

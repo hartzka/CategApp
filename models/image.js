@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const ImageSchema = mongoose.Schema({
   imageName: {
@@ -19,7 +19,7 @@ const ImageSchema = mongoose.Schema({
     ref: 'Categ'
   }}, {
   timestamps: true
-});
+})
 
 ImageSchema.set('toJSON', {
   transform: (document, returnedObject) => {
@@ -29,6 +29,6 @@ ImageSchema.set('toJSON', {
   }
 })
 
-const Image = mongoose.model('Image', ImageSchema);
+const Image = mongoose.model('Image', ImageSchema)
 
-module.exports = Image;
+module.exports = Image

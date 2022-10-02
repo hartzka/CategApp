@@ -1,7 +1,6 @@
-const express = require('express');
-const Image = require('../models/image');
-const imageRouter = express.Router();
-const multer = require('multer');
+const imageRouter = require('express').Router()
+const Image = require('../models/image')
+const multer = require('multer')
 const s3 = require('./s3')
 const jwt = require('jsonwebtoken')
 
@@ -13,18 +12,31 @@ const getTokenFrom = request => {
   return null
 }
 
-imageRouter.get('/', async (request, response) => {
-  const body = request.body
+imageRouter.get('/', async (request, response, next) => {
   const token = getTokenFrom(request)
-
   const decodedToken = jwt.verify(token, process.env.SECRET)
   if (!token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
   const images = await Image.find({}).populate('categ', {
     mainCateg: 1, subCateg: 1, description: 1, stars: 1, name: 1
-  })  
-  response.json(images.map(u => u.toJSON()))
+  })
+  response.json(images.map(i => i.toJSON()))
+})
+
+imageRouter.get('/:id', async (request, response) => {
+  const token = getTokenFrom(request)
+
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+  const image = await Image.findById(request.params.id)
+  if (image) {
+    response.json(image.toJSON())
+  } else {
+    response.status(404).end()
+  }
 })
 
 const storage = multer.diskStorage({
@@ -34,7 +46,7 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname)
   }
-});
+})
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif') {
@@ -50,7 +62,7 @@ const upload = multer({
     fileSize: 1024 * 1024 * 50
   },
   fileFilter: fileFilter
-});
+})
 
 imageRouter.route('/uploadmulter')
   .post(upload.single('imageData'), async (req, res, next) => {
@@ -68,4 +80,4 @@ imageRouter.route('/uploadmulter')
     }
 })
 
-module.exports = imageRouter;
+module.exports = imageRouter

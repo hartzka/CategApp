@@ -8,6 +8,7 @@ import MainCategForm from './components/MainCategForm'
 import SubCategForm from './components/SubCategForm'
 import Togglable from './components/Togglable'
 import CategView from './components/CategView'
+import ImageView from './components/ImageView'
 import Menu from './components/Menu'
 import Users from './components/Users'
 import MainPage from './components/MainPage'
@@ -36,6 +37,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [updatedCateg, setUpdatedCateg] = useState(null)
   const [categToUpdateId, setCategToUpdateId] = useState('')
   const mainCategFormRef = React.createRef()
   const subCategFormRef = React.createRef()
@@ -56,10 +58,9 @@ const App = () => {
 
   useEffect(() => {
     user &&
-    userService.getAll().then(users => {
+    userService.getAll().then(users =>
       setUsers(users)
-    })
-  }, [user])
+    )}, [user])
 
   useEffect(() => {
     user &&
@@ -67,7 +68,7 @@ const App = () => {
       setCategs(categs.sort(function(a,b) {
         return b.stars-a.stars
       })))
-  }, [user])
+  }, [user, updatedCateg])
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -106,6 +107,7 @@ const App = () => {
     setUser(null)
     categService.setToken('')
     imageService.setToken('')
+    userService.setToken('')
     handleSelectedCategChange(0)
     setCategs([])
     initializeFields()
@@ -305,27 +307,35 @@ const App = () => {
       isMainCateg: true,
       id: categs.length + 1,
     }
-    mainCategObject.user=user
-    categService
-      .create(mainCategObject)
-      .then(returnedCateg => {
-        setCategs(categs.concat(returnedCateg))
-        if (selectedCateg.mainCateg === '') {
-          handleSelectedCategChange(returnedCateg.id)
-        }
-        const newMessage = {
-          type: 'success',
-          text: `New category ${newMainCateg} created`
-        }
-        setMessage(newMessage)
-      }).catch(e => {
-        const newMessage = {
-          type: 'error',
-          text: 'error creating category, name must not be empty'
-        }
-        setMessage(newMessage)
-      })
-    mainCategFormRef.current.toggleVisibility()
+    if (categs.find(c => c.mainCateg === mainCategObject.mainCateg)) {
+      const newMessage = {
+        type: 'error',
+        text: 'Error, duplicate name'
+      }
+      setMessage(newMessage)
+    } else {
+      mainCategObject.user=user
+      categService
+        .create(mainCategObject)
+        .then(returnedCateg => {
+          setCategs(categs.concat(returnedCateg))
+          if (selectedCateg.mainCateg === '') {
+            handleSelectedCategChange(returnedCateg.id)
+          }
+          const newMessage = {
+            type: 'success',
+            text: `New category ${newMainCateg} created`
+          }
+          setMessage(newMessage)
+        }).catch(e => {
+          const newMessage = {
+            type: 'error',
+            text: 'error creating category, name must not be empty'
+          }
+          setMessage(newMessage)
+        })
+      mainCategFormRef.current.toggleVisibility()
+    }
     setTimeout(() => { setMessage(null) }, 4000)
     setNewMainCateg('')
   }
@@ -344,22 +354,36 @@ const App = () => {
     subCategObject.user=user
     subCategObject.image=newImage.imageObject
 
-    categService
-      .create(subCategObject)
-      .then(returnedCateg => {
-        setCategs(categs.concat(returnedCateg))
-        const newMessage = {
-          type: 'success',
-          text: `New item ${newName} created`
-        }
-        setMessage(newMessage)
-      }).catch(e => {
-        const newMessage = {
-          type: 'error',
-          text: 'error creating item, name must not be empty and image in correct format'
-        }
-        setMessage(newMessage)
-      })
+    if (subCategObject.name === '') {
+      const newMessage = {
+        type: 'error',
+        text: 'error creating item, name must not be empty'
+      }
+      setMessage(newMessage)
+    } else if (categs.find(c => c.subCateg === subCategObject.subCateg && subCategObject.subCateg !== '' && !c.isMainCateg && c.mainCateg === subCategObject.mainCateg && c.name === subCategObject.name)) {
+      const newMessage = {
+        type: 'error',
+        text: 'error creating item, duplicate name'
+      }
+      setMessage(newMessage)
+    } else {
+      categService
+        .create(subCategObject)
+        .then(returnedCateg => {
+          setCategs(categs.concat(returnedCateg))
+          const newMessage = {
+            type: 'success',
+            text: `New item ${newName} created`
+          }
+          setMessage(newMessage)
+        }).catch(e => {
+          const newMessage = {
+            type: 'error',
+            text: 'error creating item, check that the image is in correct format'
+          }
+          setMessage(newMessage)
+        })
+    }
     subCategFormRef.current.toggleVisibility()
     setTimeout(() => { setMessage(null) }, 4000)
     setDefaultImage()
@@ -416,13 +440,13 @@ const App = () => {
     categService.update(id, categToUpdate)
       .then(response => {
         setCategs(categs.map(categ => categ.id !== id ? categ : response))
+        setUpdatedCateg(response)
       }).catch(error => {
         console.log(error.response.data)
       })
   }
 
   const handleDeleteClick = (categ) => {
-    console.log('deleting', categ.id)
     const name = categ.name
     const mainCateg = categ.mainCateg
     if ((name === '' && (window.confirm(`Delete ${mainCateg}?`)))
@@ -535,6 +559,10 @@ const App = () => {
         <Switch>
           <Route path='/categ/:id' render={({ match }) =>
             <CategView id={match.params.id} categs={categs} initializeFields={initializeFields} editCategForm={editCategForm} />
+          }>
+          </Route>
+          <Route path='/image/:id' render={({ match }) =>
+            <ImageView id={match.params.id} categs={categs}/>
           }>
           </Route>
           <Route path='/users' component={Users}>

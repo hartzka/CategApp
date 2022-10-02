@@ -20,7 +20,9 @@ Frontend cypress tests: `npm run start:test` and (in another terminal) `cd front
 
 To run only frontend locally, run `npm start` in `frontend/`. Frontend will run locally on port `3000`.
 
-Deploying to heroku: `npm run deploy:full` or `npm run deploy` or `git push heroku master`
+Deploying to heroku: `npm run deploy:full` or `npm run deploy` or `git push heroku master`.
+
+The service is also automatically deployed to Heroku via GitHub Actions with `git push`.
 
 ## Env-variables
 

@@ -104,6 +104,13 @@ img {
   text-align: center;
 }
 
+#scaled-image {
+  max-width: 100%;
+  width: max-content;
+  height: max-content;
+  max-height: 100%;
+}
+
 .login-container {
   margin: 8% auto;
   display: block;

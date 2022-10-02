@@ -1,6 +1,6 @@
 # Työaikakirjanpito
 
-| päivä | aika | mitä tein  |
+| päivä | aika (h) | mitä tein  |
 | :----:|:-----| :-----|
 | 18.3.2021 |  1   | Projektin aloitus |
 | 19.3. |  4   | Alustava rakenne backendille ja frontendille, sovellus herokuun |
@@ -19,7 +19,8 @@
 | 28.4. |  6   | Paljon refaktorointia, linttausvirheet kuntoon, user pagen sisällön rajoitus |
 | 23.10.|  4   | Dokumentaation päivitystä, käyttäjien ja objektien luomista Herokussa |
 | 27.9.2022 |  7   | Lokaaliympäristön fiksailua, yleisen ulkoasun siistimistä (myös mobiili), login-pagen parannus, nav-elementin piilotus loginissa, päivitys Herokuun |
-| 28.9.2022 |  4   | User roles, mongoDB updates, GitHub Actions, build pipeline Herokuun |
-| 29.9.2022 |  4   | Routers, tokens, authorization fixes |
-| 30.9.2022 |  3   | Fixing Cypress tests, frontend tests |
-| yht.   |  88  | |
+| 28.9. |  4   | User roles, mongoDB updates, GitHub Actions, build pipeline Herokuun |
+| 29.9. |  4   | Routers, tokens, authorization fixes |
+| 30.9. |  3   | Fixing Cypress tests, frontend tests |
+| 2.10. |  3   | ImageView, final tweaks |
+| total |  91  | |
