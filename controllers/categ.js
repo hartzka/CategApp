@@ -21,14 +21,14 @@ categRouter.get('/', async (request, response, next) => {
   }
   const categs = await Categ.find({})
     .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
-    .populate('user', { username: 1, name: 1 })
+    .populate('user', { username: 1, name: 1, _id: 1 })
   response.json(categs.map(categ => categ.toJSON()))
 })
 
 categRouter.get('/:id', async (request, response) => {
   const categ = await Categ.findById(request.params.id)
     .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
-    .populate('user', { username: 1, name: 1 })
+    .populate('user', { username: 1, name: 1, _id: 1 })
   if (categ) {
     response.json(categ.toJSON())
   } else {
@@ -90,11 +90,11 @@ categRouter.post('/', async (request, response, next) => {
     await image.save()
     const categToBeReturned = await Categ.findById(savedCateg.id)
       .populate('image', { imageName: 1, imageData: 1, multerImage: 1 })
-      .populate('user', { username: 1, name: 1 })
+      .populate('user', { username: 1, name: 1, _id: 1 })
     response.json(categToBeReturned.toJSON())
   } else {
     const categToBeReturned = await Categ.findById(savedCateg.id)
-      .populate('user', { username: 1, name: 1 })
+      .populate('user', { username: 1, name: 1, _id: 1 })
     response.json(categToBeReturned.toJSON())
   }
 })

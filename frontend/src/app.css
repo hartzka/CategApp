@@ -120,6 +120,6 @@ img {
   background-color: white;
 }
 
-#login-button {
+#login-button, #register-button {
   margin-top: 25px;
 }

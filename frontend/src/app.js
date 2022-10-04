@@ -19,6 +19,7 @@ import {
 import DefaultImg from './assets/default-img.jpg'
 import { DropdownButton, Dropdown } from 'react-bootstrap'
 import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
 
 let timeoutID
 let subCategDataSet = false
@@ -36,6 +37,9 @@ const App = () => {
   const [message, setMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [registerName, setRegisterName] = useState('')
+  const [registerUsername, setRegisterUsername] = useState('')
+  const [registerPassword, setRegisterPassword] = useState('')
   const [user, setUser] = useState(null)
   const [updatedCateg, setUpdatedCateg] = useState(null)
   const [categToUpdateId, setCategToUpdateId] = useState('')
@@ -113,6 +117,34 @@ const App = () => {
     initializeFields()
   }
 
+  const handleRegister = async (event) => {
+    event.preventDefault()
+    try {
+      await userService.create({
+        name: registerName,
+        username: registerUsername,
+        password: registerPassword
+      })
+      setRegisterUsername('')
+      setRegisterPassword('')
+      setRegisterName('')
+      const newMessage = {
+        type: 'success',
+        text: `User ${registerUsername} successfully registered`
+      }
+      setMessage(newMessage)
+      setTimeout(() => { setMessage(null) }, 4000)
+    } catch (error) {
+      console.error(error)
+      const newMessage = {
+        type: 'error',
+        text: 'name, username, password min length 3, username must be unique'
+      }
+      setMessage(newMessage)
+      setTimeout(() => { setMessage(null) }, 4000)
+    }
+  }
+
   const getSubCategories = (includeShowAll) => {
     let set = new Set()
     if (includeShowAll) {
@@ -155,6 +187,18 @@ const App = () => {
       setUsername={setUsername}
       password={password}
       setPassword={setPassword}
+    />
+  )
+
+  const registerForm = () => (
+    <RegisterForm
+      handleRegister={handleRegister}
+      registerUsername={registerUsername}
+      setRegisterUsername={setRegisterUsername}
+      registerName={registerName}
+      setRegisterName={setRegisterName}
+      registerPassword={registerPassword}
+      setRegisterPassword={setRegisterPassword}
     />
   )
 
@@ -307,7 +351,7 @@ const App = () => {
       isMainCateg: true,
       id: categs.length + 1,
     }
-    if (categs.find(c => c.mainCateg === mainCategObject.mainCateg)) {
+    if (categs.find(c => c.mainCateg === mainCategObject.mainCateg && c.user.id === user.id)) {
       const newMessage = {
         type: 'error',
         text: 'Error, duplicate name'
@@ -360,7 +404,7 @@ const App = () => {
         text: 'error creating item, name must not be empty'
       }
       setMessage(newMessage)
-    } else if (categs.find(c => c.subCateg === subCategObject.subCateg && subCategObject.subCateg !== '' && !c.isMainCateg && c.mainCateg === subCategObject.mainCateg && c.name === subCategObject.name)) {
+    } else if (categs.find(c => c.subCateg === subCategObject.subCateg && subCategObject.subCateg !== '' && !c.isMainCateg && c.mainCateg === subCategObject.mainCateg && c.name === subCategObject.name && c.user.id === user.id)) {
       const newMessage = {
         type: 'error',
         text: 'error creating item, duplicate name'
@@ -467,7 +511,7 @@ const App = () => {
         setMessage(newMessage)
         if (categ.isMainCateg === true) {
           categs.forEach(c => {
-            if (c.mainCateg === categ.mainCateg && c.user.username === user.username && c.isMainCateg === false) {
+            if (c.mainCateg === categ.mainCateg && c.user.id === user.id && c.isMainCateg === false) {
               categService.deleteCateg(c.id)
             }
           })
@@ -479,7 +523,7 @@ const App = () => {
         }
       }).then(e => {
         categs.forEach(c => {
-          if (c.user.username === user.username && c.isMainCateg === true && c.id !== categ.id) {
+          if (c.user.id === user.id && c.isMainCateg === true && c.id !== categ.id) {
             handleSelectedCategChange(c.id)
           }
         })
@@ -564,6 +608,9 @@ const App = () => {
           <Route path='/image/:id' render={({ match }) =>
             <ImageView id={match.params.id} categs={categs}/>
           }>
+          </Route>
+          <Route path='/register'>
+            {registerForm()}
           </Route>
           <Route path='/users' component={Users}>
             {user ?

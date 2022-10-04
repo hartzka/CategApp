@@ -1,5 +1,6 @@
 import React from 'react'
 import { TextField } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 
 const LoginForm = ({
   handleLogin,
@@ -33,6 +34,7 @@ const LoginForm = ({
       </div>
       <button type='submit' class='btn btn-success' id='login-button'>Login</button>
     </form>
+    <Link to={'/register'}>Register</Link>
   </div>
 )
 

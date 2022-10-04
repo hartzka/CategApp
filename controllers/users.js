@@ -31,6 +31,8 @@ usersRouter.post('/', async (request, response, next) => {
       return response.status(400).json({ error: 'Password min length 3' })
     } else if (body.username.length < 3) {
       return response.status(400).json({ error: 'Username min length 3' })
+    } else if (body.name.length < 3) {
+      return response.status(400).json({ error: 'Name min length 3' })
     }
 
     const saltRounds = 10
