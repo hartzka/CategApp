@@ -110,3 +110,7 @@ The application has cypress-tests, integration tests, linting and unit tests for
 ## Avenues for future work
 
 Future work include maybe some cleaning of the code and tests, and defining more css-rules to make the application visually even better. It would also be nice to build a some kind of search bar and more functionalities, like downloading images, although the images can be downloaded by right clicking them. 
+
+## Demo
+
+[demo](https://github.com/hartzka/CategApp/tree/master/documentation/demo.mov)
