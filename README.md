@@ -1,4 +1,4 @@
-Full Stack -application
+Full Stack application
 
 Heroku: https://categapp.herokuapp.com/
 
