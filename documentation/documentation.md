@@ -113,4 +113,8 @@ Future work include maybe some cleaning of the code and tests, and defining more
 
 ## Demo
 
-[demo](https://github.com/hartzka/CategApp/tree/master/documentation/demo.mov)
+
+
+https://user-images.githubusercontent.com/42945160/194544190-91af1d1d-cde2-4006-8426-3b54108f4bac.mov
+
+
