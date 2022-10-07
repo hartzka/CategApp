@@ -24,4 +24,5 @@
 | 30.9. |  3   | Fixing Cypress tests, frontend tests |
 | 2.10. |  3   | ImageView, final tweaks |
 | 4.10. |  2   | RegisterForm |
-| total |  93  | |
+| 7.10. |  2   | Demo video, documentation |
+| total |  95  | |
